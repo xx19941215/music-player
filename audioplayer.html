@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+    <style>
+    @font-face {
+        font-family: my-player;
+        src: url(fonts/fontello.ttf);
+        font-weight: 400;
+        font-style: normal;
+
+    }
+    @keyframes ani {
+		from {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	to {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+    }
+    @-webkit-keyframes ani {
+		from {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	to {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+    }
+    @-moz-keyframes ani {
+		from {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	to {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+    }
+    @-o-keyframes ani {
+		from {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	to {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+    }
+    @-webkit-keyframes ani-two {
+    	from {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+		to {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	
+    }
+    @-moz-keyframes ani-two {
+    	from {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+		to {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	
+    }
+    @-o-keyframes ani-two {
+    	from {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+		to {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	
+    }
+    @keyframes ani-two {
+    	from {width:16px;height:16px;left: calc(70% - 8px);top: calc(70% - 8px);}
+		to {width:26px;height:26px;left: calc(50% - 13px);top: calc(50% - 13px);}
+    	
+    }
+    body {
+        font: 12px/150% Arial, Helvetica, sans-serif;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+        
+    }
+    
+    #container {
+        width: 505px;
+        height: 162px;
+        box-shadow: 0px 2px 2px 0px #ddd;
+        border-radius: 2px;
+        transition: height .3s;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .wrap {
+        position: fixed;
+       
+        bottom: 0;
+        width: 100%;
+    }
+    #player-img {
+        width: 66px;
+        height: 66px;
+        float: left;
+    }
+    
+    #player-control {}
+    
+    #container [class*="icon"] {
+        font-family: my-player;
+        font-style: normal;
+        font-size: 16px;
+        color: #666;
+        cursor: pointer;
+    }
+    #container .loop {
+    	color: #ddd;
+    }
+    #player-control {
+        font-size: 14px;
+        padding: 0px 7px 0 10px;
+        float: left;
+        height: 66px;
+        box-sizing: border-box;
+    }
+    
+    #player-control .singer {
+        font-size: 12px;
+    }
+    
+    #info {
+        position: absolute;
+        bottom: -8px;
+        right: 5px;
+        color: #A599A8;
+    }
+    #control-bar {
+        float: left;
+        width: 420px;
+        height: 2px;
+        position: relative;
+    }
+    #all {
+		width: 270px;
+        height: 2px;
+        background-color: #CDCDCD;
+    }
+    #info span {
+    	font-size: 12px;
+    }
+    #played {
+    	position: relative;
+    }
+    #played .thumb {
+		position: absolute;
+		width: 7px;
+		height: 7px;
+		background-color: #fff;
+		cursor: pointer;
+		border-radius: 50%;
+		top: -3px;
+		border: 1px solid #E8D4B9;
+		right: 0;
+    }
+    .clr:after {
+    	content: "";
+    	display: block;
+    	height: 0;
+    	clear: both;
+    }
+    ol {
+    	list-style: none;
+    	margin-top: 0;
+    	margin-bottom: 0;
+    	padding: 0;
+    }
+    ol li {
+    	height: 32px;
+    	line-height: 32px;
+    	position: relative;
+    	padding: 0 15px;
+    }
+    ol li:hover {
+    	background-color: #E9E9E9;
+    	cursor: pointer;
+    	transition: all 0.3s;
+    }
+    .player-list-cur {
+    	width: 3px;
+    	height: 22px;
+    	background-color: #AD7A86;
+    	position: absolute;
+    	top: 5px;
+    	left: 0;
+    }
+    .played-now {
+    	background-color: #E9E9E9;
+    }
+    .player-list-singer {
+    	color: #666;
+    	float: right;
+    }
+    .player-list-index {
+    	margin-right: 18px;
+    }
+    .player-list-index {
+    	color: #666;
+    }
+    #played {
+    	background-color: #AD7A86;
+    	height: 2px;
+    	width: 0%;
+    }
+    #played .thumb:hover {
+    	background-color: #AD7A86;
+    }
+    #all {
+    	cursor: pointer;
+    }
+    #player-list {
+    	overflow-y: scroll;
+    }
+    #player-list{
+    	height: 96px;
+    	transition: height .3s;
+    }
+    #player-img {
+    	position: relative;
+    }
+    #player-img div {
+    	position: absolute;
+    	width: 26px;
+    	height: 26px;
+    	border: 2px solid #fff;
+    	border-radius: 50%;
+    	left: calc(50% - 13px);
+    	top: calc(50% - 13px); 
+    	text-align: center;
+    	line-height: 26px;
+    	background-color: rgba(225,225,225,0.2);
+    	cursor: pointer;
+    }
+    #player-img #play-btn i {
+    	font-size: 24px;
+    	color: #fff !important;
+    }
+    #volume-wrap {
+    	position: absolute;
+    	width: 5px;
+    	height: 35px;
+    	background-color: #AAAAAA;
+    	top: -35px;
+    	right:6px;
+    }
+    #volume-outer {
+    	position: relative;
+    }
+    #volume {
+    	position: absolute;
+    	bottom: 0;
+    	width: 5px;
+    	
+    	background-color: #AD7A86;
+    	transition: height 0.3s;
+    }
+    #volume-mask {
+    	width: 5px;
+    	height: 35px;
+    	z-index: 66;
+    	position: relative;
+    	background-color: transparent;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div id="container">
+        <div id="top" class="clr">
+            <div id="player-img"><img src="" alt="" width="66"><div id="play-btn"><i class="icon">
+            &#xe804;</i></div></div>
+            <div id="player-control">
+                <p><span class="title"></span>-<span class="singer"></span></p>
+                <div id="control-bar">
+                    <div id="all"><div id="played"><span class="thumb"></span></div></div>
+                    <div id="info">
+                        
+                        <span id="ptime"></span>/
+                        <span id="atime"></span>
+                        <span id="volume-outer"><i class="volume icon"> &#xe800;</i>
+                                <div id="volume-wrap"><div id="volume-mask"></div>
+                            <div id="volume"></div>
+                        </div>
+                        </span>
+                        
+                        <i class="loop icon">&#xe801;</i>
+                        <i class="menu icon">&#xe802;</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="player-list">
+            <ol>
+                <!-- <li class="played-now">
+                    <span class="player-list-cur"></span>
+                    <span class="player-list-index">1</span>
+                    <span class="player-list-title">心跳</span>
+                    <span class="player-list-singer">王力宏</span>
+                </li>
+                <li>
+                    
+                    <span class="player-list-index">2</span>
+                    <span class="player-list-title">心跳</span>
+                    <span class="player-list-singer">王力宏</span>
+                </li>
+                <li>
+                    
+                    <span class="player-list-index">3</span>
+                    <span class="player-list-title">心跳</span>
+                    <span class="player-list-singer">王力宏</span>
+                </li> -->
+            </ol>
+        </div>
+    </div>
+    
+    </div>
+    <script src="audioplayer.js"></script>
+</body>
+
+</html>
