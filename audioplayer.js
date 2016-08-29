@@ -1,8 +1,7 @@
 var json = '['+
-'{"title":"心跳","singer":"王力宏","src":"mp3/心跳.mp3","img":"mp3/xintiao.jpg"},'+
-'{"title":"心跳","singer":"王力宏","src":"mp3/心跳.mp3","img":"mp3/xintiao.jpg"},'+
-'{"title":"裂心","singer":"王力宏","src":"mp3/裂心.mp3","img":"mp3/liexin.jpg"},'+
-'{"title":"在梅边(live)","singer":"王力宏","src":"mp3/在梅边(Live).mp3","img":"mp3/zaimeibian.jpg"}'+']';
+'{"title":"心跳","singer":"王力宏","src":"http://77fzek.com1.z0.glb.clouddn.com/%E5%BF%83%E8%B7%B3.mp3","img":"http://77fzek.com1.z0.glb.clouddn.com/xintiao.jpg"},'+
+'{"title":"裂心","singer":"王力宏","src":"http://77fzek.com1.z0.glb.clouddn.com/%E8%A3%82%E5%BF%83.mp3","img":"http://77fzek.com1.z0.glb.clouddn.com/liexin.jpg"},'+
+'{"title":"在梅边(live)","singer":"王力宏","src":"http://77fzek.com1.z0.glb.clouddn.com/%E5%9C%A8%E6%A2%85%E8%BE%B9%28Live%29.mp3","img":"http://77fzek.com1.z0.glb.clouddn.com/zaimeibian.jpg"}'+']';
 
 window.$ = HTMLElement.prototype.$ = function(sel){
 	return (this == window?document:this).querySelectorAll(sel);
